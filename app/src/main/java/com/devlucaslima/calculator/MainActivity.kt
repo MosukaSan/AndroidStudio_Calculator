@@ -80,7 +80,14 @@ class MainActivity : AppCompatActivity() {
         }
         btnPlus.setOnClickListener{
             val display1String = display1.text.toString()
-            display1.text = display1String + "+"
+
+            // Verifica se o último caractere é um operador antes de adicionar outro
+            if (display1String.isNotEmpty() && "+".contains(display1String.last())) {
+                // Substitui o último operador pelo novo
+                display1.text = display1String.dropLast(1) + "+"
+            } else {
+                display1.text = display1String + "+"
+            }
         }
         btnMinus.setOnClickListener{
             val display1String = display1.text.toString()

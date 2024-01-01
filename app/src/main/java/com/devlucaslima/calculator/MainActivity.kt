@@ -3,6 +3,7 @@ package com.devlucaslima.calculator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import net.objecthunter.exp4j.ExpressionBuilder
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val btn8 = findViewById<Button>(R.id.btn8)
         val btn9 = findViewById<Button>(R.id.btn9)
         val btnDot = findViewById<Button>(R.id.btnDot)
-        val btnBackspace = findViewById<Button>(R.id.btnBackspace)
+        val btnBackspace = findViewById<ImageButton>(R.id.btnBackspace)
         val btnPlus = findViewById<Button>(R.id.btnPlus)
         val btnMinus = findViewById<Button>(R.id.btnMinus)
         val btnTimes = findViewById<Button>(R.id.btnTimes)

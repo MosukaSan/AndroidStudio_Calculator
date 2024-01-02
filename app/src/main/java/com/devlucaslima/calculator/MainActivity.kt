@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         val btnAC = findViewById<Button>(R.id.btnAC)
         val btnEqual = findViewById<Button>(R.id.btnEqual)
         val display1 = findViewById<TextView>(R.id.txtDisplay)
+        var haveDot = false
         val displayResultado = findViewById<TextView>(R.id.txtResultado)
 
         btn0.setOnClickListener{
@@ -77,58 +78,106 @@ class MainActivity : AppCompatActivity() {
             display1.text = display1String + "9"
         }
         btnDot.setOnClickListener{
+            val display1String = display1.text.toString()
 
+            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())){
+                display1.text = display1String.dropLast(1) + "."
+            }
+            else if (display1String.isNotEmpty() && haveDot == false){
+                display1.append(".")
+                haveDot = true
+            }
         }
         btnPlus.setOnClickListener{
             val display1String = display1.text.toString()
 
             // Verifica se o último caractere é um operador antes de adicionar outro
-            if (display1String.isNotEmpty() && "+".contains(display1String.last())) {
+            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
                 // Substitui o último operador pelo novo
                 display1.text = display1String.dropLast(1) + "+"
-            } else {
+                haveDot = false
+            } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "+"
+                haveDot = false
             }
         }
         btnMinus.setOnClickListener{
             val display1String = display1.text.toString()
-            display1.text = display1String + "-"
+
+            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+                display1.text = display1String.dropLast(1) + "-"
+                haveDot = false
+            } else if (display1String.isNotEmpty()) {
+                display1.text = display1String + "-"
+                haveDot = false
+            }
         }
         btnTimes.setOnClickListener{
             val display1String = display1.text.toString()
-            display1.text = display1String + "*"
+
+            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+                display1.text = display1String.dropLast(1) + "*"
+                haveDot = false
+            } else if (display1String.isNotEmpty()) {
+                display1.text = display1String + "*"
+                haveDot = false
+            }
         }
         btnDivision.setOnClickListener{
             val display1String = display1.text.toString()
-            display1.text = display1String + "/"
+
+            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+                display1.text = display1String.dropLast(1) + "/"
+                haveDot = false
+            } else if (display1String.isNotEmpty()) {
+                display1.text = display1String + "/"
+                haveDot = false
+            }
         }
         btnPower.setOnClickListener{
             val display1String = display1.text.toString()
-            display1.text = display1String + "^"
+
+            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+                display1.text = display1String.dropLast(1) + "^"
+                haveDot = false
+            } else if (display1String.isNotEmpty()) {
+                display1.text = display1String + "^"
+                haveDot = false
+            }
         }
         btnAC.setOnClickListener{
+            haveDot = false
             display1.text = ""
         }
         btnBackspace.setOnClickListener{
             val display1String = display1.text.toString()
+
+            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+                haveDot = true
+            }
+            if (!display1String.contains(".") && !display1String.endsWith(".")){
+                haveDot = false
+            }
             if (display1String.isNotEmpty()) {
                 val display1Backspace = display1String.substring(0, display1String.length - 1)
                 display1.text = display1Backspace
             }
         }
         btnEqual.setOnClickListener {
-            val expressao = display1.text.toString()
+            val expression = display1.text.toString()
 
-            try {
-                val result = ExpressionBuilder(expressao).build().evaluate()
-                val formattedResult = if (result % 1 == 0.0) {
-                    result.toInt().toString()
-                } else {
-                    result.toString()
+            if (expression.isNotEmpty()){
+                try {
+                    val result = ExpressionBuilder(expression).build().evaluate()
+                    val formattedResult = if (result % 1 == 0.0) {
+                        result.toInt().toString()
+                    } else {
+                        result.toString()
+                    }
+                    display1.text = formattedResult
+                } catch (e: Exception) {
+                    display1.text = "Error"
                 }
-                display1.text = formattedResult
-            } catch (e: Exception) {
-                display1.text = "Error"
             }
         }
     }

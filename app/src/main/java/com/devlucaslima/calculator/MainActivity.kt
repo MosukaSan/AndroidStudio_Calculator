@@ -5,13 +5,17 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.widget.doOnTextChanged
 import net.objecthunter.exp4j.ExpressionBuilder
+import java.math.BigDecimal
+import java.text.DecimalFormat
+import kotlin.math.absoluteValue
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         //Botões
         val btn0 = findViewById<Button>(R.id.btn0)
@@ -35,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         val btnEqual = findViewById<Button>(R.id.btnEqual)
         val display1 = findViewById<TextView>(R.id.txtDisplay)
         var haveDot = false
-        val displayResultado = findViewById<TextView>(R.id.txtResultado)
 
         btn0.setOnClickListener{
             val display1String = display1.text.toString()
@@ -81,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             val display1String = display1.text.toString()
 
             if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())){
-                display1.text = display1String.dropLast(1) + "."
+                display1.text = display1String
             }
             else if (display1String.isNotEmpty() && haveDot == false){
                 display1.append(".")
@@ -169,12 +172,25 @@ class MainActivity : AppCompatActivity() {
             if (expression.isNotEmpty()){
                 try {
                     val result = ExpressionBuilder(expression).build().evaluate()
-                    val formattedResult = if (result % 1 == 0.0) {
-                        result.toInt().toString()
+                    val display1String = display1.text.toString()
+
+                    val formattedResult = if (result.absoluteValue >= 1e10) {
+                        val decimalFormat = DecimalFormat("0.#########E0")
+                        decimalFormat.format(result)
                     } else {
                         result.toString()
                     }
-                    display1.text = formattedResult
+
+                    if (formattedResult.contains("E")){
+                        display1.text = formattedResult
+                    } else if (formattedResult.contains(".") && !"0".contains(formattedResult.last())){
+                        display1.text = formattedResult
+                    } else if("+-*/^".contains(formattedResult.last())) {
+                        display1.text = display1String
+                    } else {
+                        val transformInt = formattedResult.substring(0, formattedResult.length - 2)
+                        display1.text = transformInt
+                    }
                 } catch (e: Exception) {
                     display1.text = "Error"
                 }

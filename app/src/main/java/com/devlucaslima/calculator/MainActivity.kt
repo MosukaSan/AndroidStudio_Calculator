@@ -6,16 +6,12 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import net.objecthunter.exp4j.ExpressionBuilder
-import java.math.BigDecimal
 import java.text.DecimalFormat
 import kotlin.math.absoluteValue
-
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
 
         //Botões
         val btn0 = findViewById<Button>(R.id.btn0)
@@ -83,10 +79,11 @@ class MainActivity : AppCompatActivity() {
         btnDot.setOnClickListener{
             val display1String = display1.text.toString()
 
-            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())){
-                display1.text = display1String
-            }
-            else if (display1String.isNotEmpty() && haveDot == false){
+            if (display1String.length == 1 && "+-*/^".contains(display1String.last())){
+                display1.text = display1String.dropLast(1) + "."
+            } else if ("+-*/^".contains(display1String.last())){
+                display1.text = display1String.dropLast(1) + "."
+            } else if (display1String.isNotEmpty() && !haveDot){
                 display1.append(".")
                 haveDot = true
             }
@@ -94,7 +91,6 @@ class MainActivity : AppCompatActivity() {
         btnPlus.setOnClickListener{
             val display1String = display1.text.toString()
 
-            // Verifica se o último caractere é um operador antes de adicionar outro
             if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
                 // Substitui o último operador pelo novo
                 display1.text = display1String.dropLast(1) + "+"
@@ -106,14 +102,19 @@ class MainActivity : AppCompatActivity() {
         }
         btnMinus.setOnClickListener{
             val display1String = display1.text.toString()
-
-            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+            if (display1String.length == 1 && "+-*/^".contains(display1String.last())){
                 display1.text = display1String.dropLast(1) + "-"
                 haveDot = false
-            } else if (display1String.isNotEmpty()) {
-                display1.text = display1String + "-"
-                haveDot = false
+            } else {
+                if (display1String.isNotEmpty() && "+-".contains(display1String.last())) {
+                    display1.text = display1String.dropLast(1) + "-"
+                    haveDot = false
+                } else {
+                    display1.text = display1String + "-"
+                    haveDot = false
+                }
             }
+
         }
         btnTimes.setOnClickListener{
             val display1String = display1.text.toString()
@@ -169,7 +170,7 @@ class MainActivity : AppCompatActivity() {
         btnEqual.setOnClickListener {
             val expression = display1.text.toString()
 
-            if (expression.isNotEmpty()){
+            if (expression.isNotEmpty() && !"+-*/^".contains(expression.last())){
                 try {
                     val result = ExpressionBuilder(expression).build().evaluate()
                     val display1String = display1.text.toString()

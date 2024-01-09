@@ -35,7 +35,11 @@ class MainActivity : AppCompatActivity() {
         val btnEqual = findViewById<Button>(R.id.btnEqual)
         val display1 = findViewById<TextView>(R.id.txtDisplay)
         var haveDot = false
+        var haveDotMaster = false
 
+        //algumas outras variáveis
+
+        //Funcionalidade dos botões
         btn0.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "0"
@@ -78,74 +82,83 @@ class MainActivity : AppCompatActivity() {
         }
         btnDot.setOnClickListener{
             val display1String = display1.text.toString()
-
-            if (display1String.length == 1 && "+-*/^".contains(display1String.last())){
-                display1.text = display1String.dropLast(1) + "."
-            } else if ("+-*/^".contains(display1String.last())){
-                display1.text = display1String.dropLast(1) + "."
-            } else if (display1String.isNotEmpty() && !haveDot){
-                display1.append(".")
-                haveDot = true
+            if (!haveDot && display1String.isNotEmpty()) {
+                if (!"+-*/^.".contains(display1String.last())){
+                    display1.append(".")
+                    haveDot = true
+                }
+            } else {
+                display1.text = display1String
             }
         }
         btnPlus.setOnClickListener{
             val display1String = display1.text.toString()
 
-            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+            if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
                 // Substitui o último operador pelo novo
                 display1.text = display1String.dropLast(1) + "+"
+                haveDotMaster = haveDot
                 haveDot = false
             } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "+"
+                haveDotMaster = haveDot
                 haveDot = false
             }
         }
         btnMinus.setOnClickListener{
             val display1String = display1.text.toString()
-            if (display1String.length == 1 && "+-*/^".contains(display1String.last())){
+            if (display1String.length == 1 && "+-*/^.".contains(display1String.last())){
                 display1.text = display1String.dropLast(1) + "-"
+                haveDotMaster = haveDot
                 haveDot = false
             } else {
-                if (display1String.isNotEmpty() && "+-".contains(display1String.last())) {
+                if (display1String.isNotEmpty() && "+-.".contains(display1String.last())) {
                     display1.text = display1String.dropLast(1) + "-"
+                    haveDotMaster = haveDot
                     haveDot = false
                 } else {
                     display1.text = display1String + "-"
+                    haveDotMaster = haveDot
                     haveDot = false
                 }
             }
-
         }
         btnTimes.setOnClickListener{
             val display1String = display1.text.toString()
 
-            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+            if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
                 display1.text = display1String.dropLast(1) + "*"
+                haveDotMaster = haveDot
                 haveDot = false
             } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "*"
+                haveDotMaster = haveDot
                 haveDot = false
             }
         }
         btnDivision.setOnClickListener{
             val display1String = display1.text.toString()
 
-            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+            if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
                 display1.text = display1String.dropLast(1) + "/"
+                haveDotMaster = haveDot
                 haveDot = false
             } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "/"
+                haveDotMaster = haveDot
                 haveDot = false
             }
         }
         btnPower.setOnClickListener{
             val display1String = display1.text.toString()
 
-            if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
+            if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
                 display1.text = display1String.dropLast(1) + "^"
+                haveDotMaster = haveDot
                 haveDot = false
             } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "^"
+                haveDotMaster = haveDot
                 haveDot = false
             }
         }
@@ -157,9 +170,13 @@ class MainActivity : AppCompatActivity() {
             val display1String = display1.text.toString()
 
             if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
-                haveDot = true
+                if (haveDotMaster) {
+                    haveDot = true
+                } else {
+                    haveDot = false
+                }
             }
-            if (!display1String.contains(".") && !display1String.endsWith(".")){
+            if (display1String.endsWith(".")){
                 haveDot = false
             }
             if (display1String.isNotEmpty()) {

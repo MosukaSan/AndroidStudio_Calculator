@@ -31,11 +31,14 @@ class MainActivity : AppCompatActivity() {
         val btnTimes = findViewById<Button>(R.id.btnTimes)
         val btnDivision = findViewById<Button>(R.id.btnDivision)
         val btnPower = findViewById<Button>(R.id.btnPower)
+        val btnParentheses = findViewById<Button>(R.id.btnParentheses)
         val btnAC = findViewById<Button>(R.id.btnAC)
         val btnEqual = findViewById<Button>(R.id.btnEqual)
         val display1 = findViewById<TextView>(R.id.txtDisplay)
+        var nParentheses = 0
         var haveDot = false
         var haveDotMaster = false
+        var openParentheses = false
 
         //algumas outras variáveis
 
@@ -43,47 +46,107 @@ class MainActivity : AppCompatActivity() {
         btn0.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "0"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btn1.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "1"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btn2.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "2"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btn3.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "3"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btn4.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "4"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btn5.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "5"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btn6.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "6"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btn7.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "7"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btn8.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "8"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btn9.setOnClickListener{
             val display1String = display1.text.toString()
             display1.text = display1String + "9"
+
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btnDot.setOnClickListener{
             val display1String = display1.text.toString()
             if (!haveDot && display1String.isNotEmpty()) {
-                if (!"+-*/^.".contains(display1String.last())){
+                if (!"+-*/^.()".contains(display1String.last())){
                     display1.append(".")
                     haveDot = true
                 }
@@ -94,11 +157,17 @@ class MainActivity : AppCompatActivity() {
         btnPlus.setOnClickListener{
             val display1String = display1.text.toString()
 
-            if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            }
+            if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                display1.text = display1String
+            } else if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
                 // Substitui o último operador pelo novo
                 display1.text = display1String.dropLast(1) + "+"
                 haveDotMaster = haveDot
                 haveDot = false
+                openParentheses = false
             } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "+"
                 haveDotMaster = haveDot
@@ -122,11 +191,21 @@ class MainActivity : AppCompatActivity() {
                     haveDot = false
                 }
             }
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            } else if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                openParentheses = true
+            }
         }
         btnTimes.setOnClickListener{
             val display1String = display1.text.toString()
 
-            if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            }
+            if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                display1.text = display1String
+            } else if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
                 display1.text = display1String.dropLast(1) + "*"
                 haveDotMaster = haveDot
                 haveDot = false
@@ -135,11 +214,17 @@ class MainActivity : AppCompatActivity() {
                 haveDotMaster = haveDot
                 haveDot = false
             }
+
         }
         btnDivision.setOnClickListener{
             val display1String = display1.text.toString()
 
-            if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            }
+            if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                display1.text = display1String
+            } else if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
                 display1.text = display1String.dropLast(1) + "/"
                 haveDotMaster = haveDot
                 haveDot = false
@@ -148,11 +233,17 @@ class MainActivity : AppCompatActivity() {
                 haveDotMaster = haveDot
                 haveDot = false
             }
+
         }
         btnPower.setOnClickListener{
             val display1String = display1.text.toString()
 
-            if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
+            if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                openParentheses = false
+            }
+            if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
+                display1.text = display1String
+            } else if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
                 display1.text = display1String.dropLast(1) + "^"
                 haveDotMaster = haveDot
                 haveDot = false
@@ -162,8 +253,35 @@ class MainActivity : AppCompatActivity() {
                 haveDot = false
             }
         }
+        btnParentheses.setOnClickListener{
+            val display1String = display1.text.toString()
+
+            if (display1String == ""){
+                display1.text = display1String + "("
+                nParentheses++
+            } else if (!"123456789".contains(display1String.last())){
+                if (display1String.isNotEmpty() && "(".contains(display1String.last())){
+                    display1.text = display1String + "("
+                    nParentheses++
+                } else if (!openParentheses) {
+                    display1.text = display1String + "("
+                    nParentheses++
+                }
+            }
+            if (display1String.isNotEmpty() && nParentheses > 0 && !"(".contains(display1String.last()) && !"+-*/^.(".contains(display1String.last())){
+                if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                    display1.text = display1String + ")"
+                    nParentheses--
+                } else if (openParentheses) {
+                    display1.text = display1String + ")"
+                    nParentheses--
+                }
+            }
+        }
         btnAC.setOnClickListener{
             haveDot = false
+            openParentheses = false
+            nParentheses = 0
             display1.text = ""
         }
         btnBackspace.setOnClickListener{
@@ -176,12 +294,17 @@ class MainActivity : AppCompatActivity() {
                     haveDot = false
                 }
             }
-            if (display1String.endsWith(".")){
+            if (display1String.isNotEmpty() && display1String.endsWith(".")){
                 haveDot = false
             }
             if (display1String.isNotEmpty()) {
                 val display1Backspace = display1String.substring(0, display1String.length - 1)
                 display1.text = display1Backspace
+            }
+            if (display1String.isNotEmpty() && "(".contains(display1String.last())){
+                nParentheses--
+            } else if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                nParentheses++
             }
         }
         btnEqual.setOnClickListener {
@@ -198,7 +321,6 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         result.toString()
                     }
-
                     if (formattedResult.contains("E")){
                         display1.text = formattedResult
                     } else if (formattedResult.contains(".") && !"0".contains(formattedResult.last())){

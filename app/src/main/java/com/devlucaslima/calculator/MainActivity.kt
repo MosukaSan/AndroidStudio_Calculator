@@ -259,7 +259,7 @@ class MainActivity : AppCompatActivity() {
             if (display1String == ""){
                 display1.text = display1String + "("
                 nParentheses++
-            } else if (!"123456789".contains(display1String.last())){
+            } else if (!"123456789.".contains(display1String.last())){
                 if (display1String.isNotEmpty() && "(".contains(display1String.last())){
                     display1.text = display1String + "("
                     nParentheses++
@@ -287,6 +287,11 @@ class MainActivity : AppCompatActivity() {
         btnBackspace.setOnClickListener{
             val display1String = display1.text.toString()
 
+            if (display1String.isNotEmpty() && "(".contains(display1String.last())){
+                nParentheses--
+            } else if (display1String.isNotEmpty() && ")".contains(display1String.last())){
+                nParentheses++
+            }
             if (display1String.isNotEmpty() && "+-*/^".contains(display1String.last())) {
                 if (haveDotMaster) {
                     haveDot = true
@@ -300,11 +305,9 @@ class MainActivity : AppCompatActivity() {
             if (display1String.isNotEmpty()) {
                 val display1Backspace = display1String.substring(0, display1String.length - 1)
                 display1.text = display1Backspace
-            }
-            if (display1String.isNotEmpty() && "(".contains(display1String.last())){
-                nParentheses--
-            } else if (display1String.isNotEmpty() && ")".contains(display1String.last())){
-                nParentheses++
+                if (display1String.isNotEmpty() && "(".contains(display1String.last())){
+                    openParentheses = false
+                }
             }
         }
         btnEqual.setOnClickListener {

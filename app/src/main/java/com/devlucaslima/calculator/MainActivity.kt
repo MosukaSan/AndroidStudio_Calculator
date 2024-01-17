@@ -163,11 +163,15 @@ class MainActivity : AppCompatActivity() {
             if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
                 display1.text = display1String
             } else if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
-                // Substitui o último operador pelo novo
-                display1.text = display1String.dropLast(1) + "+"
-                haveDotMaster = haveDot
-                haveDot = false
-                openParentheses = false
+                if (display1String.length == 1 && display1String.contains("-")){
+                    display1.text = display1String
+                } else if (!"+-*/^.".contains(display1String[display1String.length - 2])){
+                    display1.text = display1String.dropLast(1) + "+"
+                    haveDotMaster = haveDot
+                    haveDot = false
+                } else {
+                    display1.text = display1String
+                }
             } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "+"
                 haveDotMaster = haveDot
@@ -206,9 +210,15 @@ class MainActivity : AppCompatActivity() {
             if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
                 display1.text = display1String
             } else if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
-                display1.text = display1String.dropLast(1) + "*"
-                haveDotMaster = haveDot
-                haveDot = false
+                if (display1String.length == 1 && display1String.contains("-")){
+                    display1.text = display1String
+                } else if (!"+-*/^.".contains(display1String[display1String.length - 2])){
+                    display1.text = display1String.dropLast(1) + "*"
+                    haveDotMaster = haveDot
+                    haveDot = false
+                } else {
+                    display1.text = display1String
+                }
             } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "*"
                 haveDotMaster = haveDot
@@ -225,9 +235,15 @@ class MainActivity : AppCompatActivity() {
             if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
                 display1.text = display1String
             } else if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
-                display1.text = display1String.dropLast(1) + "/"
-                haveDotMaster = haveDot
-                haveDot = false
+                if (display1String.length == 1 && display1String.contains("-")){
+                    display1.text = display1String
+                } else if (!"+-*/^.".contains(display1String[display1String.length - 2])){
+                    display1.text = display1String.dropLast(1) + "/"
+                    haveDotMaster = haveDot
+                    haveDot = false
+                } else {
+                    display1.text = display1String
+                }
             } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "/"
                 haveDotMaster = haveDot
@@ -244,9 +260,15 @@ class MainActivity : AppCompatActivity() {
             if (display1String.isNotEmpty() && "(".contains(display1String.last())) {
                 display1.text = display1String
             } else if (display1String.isNotEmpty() && "+-*/^.".contains(display1String.last())) {
-                display1.text = display1String.dropLast(1) + "^"
-                haveDotMaster = haveDot
-                haveDot = false
+                if (display1String.length == 1 && display1String.contains("-")){
+                    display1.text = display1String
+                } else if (!"+-*/^.".contains(display1String[display1String.length - 2])){
+                    display1.text = display1String.dropLast(1) + "^"
+                    haveDotMaster = haveDot
+                    haveDot = false
+                } else {
+                    display1.text = display1String
+                }
             } else if (display1String.isNotEmpty()) {
                 display1.text = display1String + "^"
                 haveDotMaster = haveDot

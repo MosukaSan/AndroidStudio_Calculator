@@ -281,7 +281,7 @@ class MainActivity : AppCompatActivity() {
             if (display1String == ""){
                 display1.text = display1String + "("
                 nParentheses++
-            } else if (!"123456789.".contains(display1String.last())){
+            } else {
                 if (display1String.isNotEmpty() && "(".contains(display1String.last())){
                     display1.text = display1String + "("
                     nParentheses++

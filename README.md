@@ -4,13 +4,17 @@
 
 # Features ✅
 - Number display;
+- 0 - 9 numbers,
 - Sum;
 - Subtraction;
 - Division;
 - Muliplication;
 - Potenciation;
 - Parentheses system;
-- Exponential Expressions for Very Large Numbers.
+- Exponential expressions for Very Large Numbers;
+- Negative numbers;
+- Decimal numbers;
+- Backspace and AC button.
 
 # Made using:
 [![My Skills](https://skillicons.dev/icons?i=androidstudio,kotlin)](https://skillicons.dev)

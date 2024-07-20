@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.Calculator" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- ... outros estilos ... -->
-        <item name="android:statusBarColor">#232323</item>
+    <style name="Theme.Calculator" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:colorBackground">@color/bgColor</item>
+        <item name="android:statusBarColor">@color/panelColor</item>
+        <item name="android:navigationBarColor">@color/bgColor</item>
     </style>
 </resources>

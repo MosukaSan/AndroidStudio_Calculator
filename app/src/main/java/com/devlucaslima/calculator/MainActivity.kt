@@ -1,5 +1,6 @@
 package com.devlucaslima.calculator
 
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -40,7 +41,9 @@ class MainActivity : AppCompatActivity() {
         var haveDotMaster = false
         var openParentheses = false
 
-        //algumas outras variáveis
+        //pre-actions
+        display1.text = ""
+        display1.isSelected = true
 
         //Funcionalidade dos botões
         btn0.setOnClickListener{

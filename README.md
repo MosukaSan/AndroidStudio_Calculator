@@ -1,5 +1,5 @@
 # Android Studio Calculator 📱🔢
-- version 1
+- version 1.0.0
 - Android 8.0+
 
 # Features ✅
